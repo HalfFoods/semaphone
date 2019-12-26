@@ -20,7 +20,3 @@ union semun {
   struct seminfo  *__buf;  /* Buffer for IPC_INFO
                               (Linux-specific) */
 };
-
-int creating();
-int removing();
-int viewing();
