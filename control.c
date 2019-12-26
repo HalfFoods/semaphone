@@ -11,6 +11,7 @@ int main(int argc, char * argv[]){
   us.val = 1;
   sb.sem_num = 0;
   sb.sem_op = -1;
+  printf("flag is %s\n", flag);
 
   if (!strcmp(flag, "-c")){
     semd = semget(SEMKEY, 1, IPC_CREAT | IPC_EXCL | 0644);
