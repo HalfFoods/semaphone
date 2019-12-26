@@ -22,8 +22,9 @@ int main(){
   char * old = shmat(shmd, 0, 0);
   printf("Last addition: %s\n", old);
   char new[SEG_SIZE];
-  fgets(next, SEG_SIZE, stdin);
-  printf("Your addition: %s\n", new);
+  printf("Your addition: ");
+  fgets(new, SEG_SIZE, stdin);
+  printf("\n");
   write(fd, new, strlen(new));
   close(fd);
   strcpy(old, new);
