@@ -71,9 +71,11 @@ int removing(){
   }
 
   printf("The story so far:\n");
-  char b[SEG_SIZE];
-  while(read(fd, b, SEG_SIZE) >= SEG_SIZE){
-    printf("%s", b);
+  char buff[SEG_SIZE];
+  buff[0] = '\0';
+  read(fd, buff, SEG_SIZE);
+  if (strlen(buff) != 0) {
+    *(strrchr(buff, '\n') + 1) = '\0';
   }
   printf("\n");
   close(fd);
@@ -95,9 +97,9 @@ int viewing(){
   }
 
   printf("The story so far:\n");
-  char b[SEG_SIZE];
+  char buff[SEG_SIZE];
   buff[0] = '\0';
-  read(fd, buff, SIZE);
+  read(fd, buff, SEG_SIZE);
   if (strlen(buff) != 0) {
     *(strrchr(buff, '\n') + 1) = '\0';
   }
