@@ -51,7 +51,8 @@ int creating(){
 
 int removing(){
   printf("trying to get in\n");
-
+  viewing();
+  
   shmd = shmget(SHKEY, SEG_SIZE, 0);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
@@ -60,7 +61,6 @@ int removing(){
   shmctl(shmd, IPC_RMID, 0);
   printf("shared memory removed\n");
 
-  viewing();
   remove("semaphone.txt");
   printf("file removed\n");
 
