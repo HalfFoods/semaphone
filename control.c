@@ -2,13 +2,13 @@
 
 int semd, v, r, shmd, fd;
 struct sembuf sb;
-sb.sem_num = 0;
-sb.sem_op = -1;
 
 int main(int argc, char * argv[]){
   char flag[2];
-
   strncpy(flag, argv[1], 2);
+
+  sb.sem_num = 0;
+  sb.sem_op = -1;
 
   if (!strcmp(flag, "-c")){
     creating();
