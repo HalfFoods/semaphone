@@ -96,8 +96,10 @@ int viewing(){
 
   printf("The story so far:\n");
   char b[SEG_SIZE];
-  while(read(fd, b, SEG_SIZE) >= SEG_SIZE){
-    printf("%s", b);
+  buff[0] = '\0';
+  read(fd, buff, SIZE);
+  if (strlen(buff) != 0) {
+    *(strrchr(buff, '\n') + 1) = '\0';
   }
   printf("\n");
   close(fd);
