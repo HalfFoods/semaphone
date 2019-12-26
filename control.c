@@ -37,7 +37,7 @@ int create(){
   }
   printf("semaphore created\n");
 
-  shmd = shmget(KEY, SEG_SIZE, IPC_CREAT | 0644);
+  shmd = shmget(SHKEY, SEG_SIZE, IPC_CREAT | 0644);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
