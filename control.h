@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/shm.h>
+#include <unistd.h>
 
 #define SEMKEY 24601
 #define SHKEY 24602
@@ -20,4 +21,6 @@ union semun {
                               (Linux-specific) */
 };
 
-int create();
+int creating();
+int removing();
+int viewing();
