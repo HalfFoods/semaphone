@@ -1,7 +1,7 @@
-control: control.c
+control: control.c control.h
 	gcc -o control.c
 
-write: write.c
+write: write.c control.h
 	gcc -o write.c
 
 clean:
