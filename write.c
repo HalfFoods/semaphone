@@ -26,7 +26,7 @@ int main(){
   fgets(new, SEG_SIZE, stdin);
   new[strlen(new)-1] = '\0';
   write(fd, new, strlen(new));
-  write(fd, '\n', 1);
+  write(fd, "\n", 1);
   close(fd);
   strcpy(old, new);
   shmdt(old);
