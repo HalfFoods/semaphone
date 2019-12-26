@@ -79,11 +79,10 @@ int removing(){
   printf("The story so far:\n");
   char buff[SEG_SIZE];
   buff[0] = '\0';
-  read(fd, buff, SEG_SIZE);
-  if (strlen(buff) != 0) {
-    *(strrchr(buff, '\n') + 1) = '\0';
+  while(read(fd,buff,SEG_SIZE) >= SEG_SIZE){
+    printf("%s",buff);
   }
-  printf("%s\n", buff);
+  printf("\n");
   close(fd);
 
   shmctl(shmd, IPC_RMID, 0);
@@ -105,11 +104,10 @@ int viewing(){
   printf("The story so far:\n");
   char buff[SEG_SIZE];
   buff[0] = '\0';
-  read(fd, buff, SEG_SIZE);
-  if (strlen(buff) != 0) {
-    *(strrchr(buff, '\n') + 1) = '\0';
+  while(read(fd,buff,SEG_SIZE) >= SEG_SIZE){
+    printf("%s",buff);
   }
-  printf("%s\n", buff);
+  printf("\n");
   close(fd);
   return 0;
 }
