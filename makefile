@@ -5,3 +5,4 @@ all: control.c write.c
 clean:
 	rm control
 	rm write
+	rm semaphone.txt

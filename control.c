@@ -1,6 +1,9 @@
 #include "control.h"
 
 int semd, v, r, shmd, fd;
+struct sembuf sb;
+sb.sem_num = 0;
+sb.sem_op = -1;
 
 int main(int argc, char * argv[]){
   char flag[2];
@@ -62,9 +65,6 @@ int removing(){
   }
 
   printf("trying to get in\n");
-  struct sembuf sb;
-  sb.sem_num = 0;
-  sb.sem_op = -1;
   semop(semd, &sb, 1);
 
   shmd = shmget(SHKEY, SEG_SIZE, 0);
