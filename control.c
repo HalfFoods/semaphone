@@ -53,9 +53,9 @@ int creating(){
 }
 
 int removing(){
+  semd = semget(SEMKEY, 1, 0);
   sb.sem_num = 0;
   sb.sem_op = -1;
-  semd = semget(SEMKEY, 1, 0);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
@@ -78,6 +78,8 @@ int removing(){
   shmctl(shmd, IPC_RMID, 0);
   printf("shared memory removed\n");
   semctl(semd, IPC_RMID, 0);
+  sb.sem_op = 1;
+  semop(semd, &sb, 1);
   printf("semaphore removed\n");
   remove("semaphone.txt");
   printf("file removed\n");
