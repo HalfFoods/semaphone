@@ -5,9 +5,11 @@
 #include <sys/sem.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <fcntl.h>
 
 #define SEMKEY 24601
 #define SHKEY 24602
+#define SEG_SIZE 200
 
 union semun {
   int              val;    /* Value for SETVAL */
@@ -17,4 +19,4 @@ union semun {
                               (Linux-specific) */
 };
 
-void create();
+int create();

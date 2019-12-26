@@ -1,6 +1,6 @@
 #include "control.h"
 
-int semd, v, r;
+int semd, v, r, fd;
 
 int main(int argc, char * argv[]){
   char flag[2];
@@ -10,10 +10,10 @@ int main(int argc, char * argv[]){
   if (!strcmp(flag, "-c")){
     create();
   }
-  if (!strcmp(flag, "-v")){
+  else if (!strcmp(flag, "-v")){
 
   }
-  if (!strcmp(flag, "-r")){
+  else if (!strcmp(flag, "-r")){
 
   }
   else{
@@ -21,7 +21,7 @@ int main(int argc, char * argv[]){
   }
 }
 
-void create(){
+int create(){
   semd = semget(SEMKEY, 1, IPC_CREAT | IPC_EXCL | 0644);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
@@ -36,4 +36,18 @@ void create(){
     printf("semctl returned: %d\n", r);
   }
   printf("semaphore created\n");
+
+  shmd = shmget(KEY, SEG_SIZE, IPC_CREAT | 0644);
+  if (shmd == -1){
+    printf("error %d: %s\n", errno, strerror(errno));
+    return -1;
+  }
+  printf("shared memory created\n");
+
+  fd = open("semaphone.txt", O_CREAT | O_TRUNC | O_RDWR, 0644);
+  if (fd == -1){
+    printf("error %d: %s\n", errno, strerror(errno));
+    return -1;
+  }
+  printf("file created\n");
 }
