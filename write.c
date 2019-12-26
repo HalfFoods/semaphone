@@ -19,14 +19,15 @@ int main(){
   }
 
   fd = open("semaphone.txt", O_WRONLY | O_APPEND);
-  printf("Last addition: %s\n", shmat(shmd, 0, 0));
+  char * old = shmat(shmd, 0, 0);
+  printf("Last addition: %s\n", old);
   char new[SEG_SIZE];
   fgets(next, SEG_SIZE, stdin);
   printf("Your addition: %s\n", new);
   write(fd, new, strlen(new));
   close(fd);
-  strcpy(last, next);
-  shmdt(last);
+  strcpy(old, new);
+  shmdt(old);
   sb.sem_op = 1;
   semop(semd, &sb, 1);
 }
