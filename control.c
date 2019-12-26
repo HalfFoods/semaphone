@@ -8,10 +8,6 @@ int main(int argc, char * argv[]){
   char flag[2];
   strncpy(flag, argv[1], 2);
 
-  us.val = 1;
-  sb.sem_num = 0;
-  sb.sem_op = -1;
-
   if (!strcmp(flag, "-c")){
     creating();
   }
@@ -27,6 +23,7 @@ int main(int argc, char * argv[]){
 }
 
 int creating(){
+  us.val = 1;
   semd = semget(SEMKEY, 1, IPC_CREAT | IPC_EXCL | 0644);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
@@ -56,6 +53,8 @@ int creating(){
 }
 
 int removing(){
+  sb.sem_num = 0;
+  sb.sem_op = -1;
   semd = semget(SEMKEY, 1, 0);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
