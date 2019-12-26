@@ -47,43 +47,31 @@ int creating(){
   }
   close(fd);
   printf("file created\n");
-  return 0;
 }
 
 int removing(){
   printf("trying to get in\n");
-  semd = semget(SEMKEY, 1, 0);
-  if (semd == -1) {
-    printf("error %d: %s\n", errno, strerror(errno));
-    return -1;
-  }
-  semop(semd, &sb, 1);
 
   shmd = shmget(SHKEY, SEG_SIZE, 0);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
+  shmctl(shmd, IPC_RMID, 0);
+  printf("shared memory removed\n");
 
-  fd = open("semaphone.txt", O_RDONLY);
-  if (fd == -1){
+  viewing();
+  remove("semaphone.txt");
+  printf("file removed\n");
+
+  semd = semget(SEMKEY, 1, 0);
+  if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
-  printf("The story so far:\n");
-  char buff[SEG_SIZE];
-  buff[0] = '\0';
-  read(fd, buff, SEG_SIZE);
-  printf("%s\n",buff);
-  close(fd);
-
-  shmctl(shmd, IPC_RMID, 0);
-  printf("shared memory removed\n");
+  semop(semd, &sb, 1);
   semctl(semd, IPC_RMID, 0);
   printf("semaphore removed\n");
-  remove("semaphone.txt");
-  printf("file removed\n");
-  return 0;
 }
 
 int viewing(){
@@ -98,5 +86,4 @@ int viewing(){
   read(fd, buff, SEG_SIZE);
   printf("%s\n",buff);
   close(fd);
-  return 0;
 }
