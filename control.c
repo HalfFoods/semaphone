@@ -99,7 +99,7 @@ int viewing(){
   while(read(fd, b, SEG_SIZE) >= SEG_SIZE){
     printf("%s", b);
   }
-  printtf("\n");
+  printf("\n");
   close(fd);
   return 0;
 }
