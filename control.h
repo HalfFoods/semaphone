@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <sys/shm.h>
 
 #define SEMKEY 24601
 #define SHKEY 24602
