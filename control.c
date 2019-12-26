@@ -2,11 +2,13 @@
 
 int semd, v, r, shmd, fd;
 struct sembuf sb;
+union semun us;
 
 int main(int argc, char * argv[]){
   char flag[2];
   strncpy(flag, argv[1], 2);
 
+  us.val = 1;
   sb.sem_num = 0;
   sb.sem_op = -1;
 
@@ -28,16 +30,10 @@ int creating(){
   semd = semget(SEMKEY, 1, IPC_CREAT | IPC_EXCL | 0644);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
-    semd = semget(SEMKEY, 1, 0);
-    v = semctl(semd, 0, GETVAL, 0);
-    printf("semctl returned: %d\n", v);
+    return -1;
   }
-  else {
-    union semun us;
-    us.val = 1;
-    r = semctl(semd, 0, SETVAL, us);
-    printf("semctl returned: %d\n", r);
-  }
+  semctl(semd, 0, SETVAL, us);
+
   printf("semaphore created\n");
 
   shmd = shmget(SHKEY, SEG_SIZE, IPC_CREAT | 0644);
