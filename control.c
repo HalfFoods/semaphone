@@ -51,13 +51,12 @@ int creating(){
 }
 
 int removing(){
+  printf("trying to get in\n");
   semd = semget(SEMKEY, 1, 0);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
-
-  printf("trying to get in\n");
   semop(semd, &sb, 1);
 
   shmd = shmget(SHKEY, SEG_SIZE, 0);
@@ -71,7 +70,6 @@ int removing(){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
-
   printf("The story so far:\n");
   char buff[SEG_SIZE];
   buff[0] = '\0';
