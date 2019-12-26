@@ -30,10 +30,12 @@ int creating(){
   semd = semget(SEMKEY, 1, IPC_CREAT | IPC_EXCL | 0644);
   if (semd == -1) {
     printf("error %d: %s\n", errno, strerror(errno));
+    semd = semget(SEMKEY, 1, 0);
+    v = semctl(semd, 0, GETVAL, 0);
+    printf("semctl returned: %d\n", v);
     return -1;
   }
   semctl(semd, 0, SETVAL, us);
-
   printf("semaphore created\n");
 
   shmd = shmget(SHKEY, SEG_SIZE, IPC_CREAT | 0644);
