@@ -8,6 +8,7 @@ union semun us;
 int main(int argc, char * argv[]){
   char flag[2];
   strncpy(flag, argv[1], 2);
+  printf("flag is %s\n", flag);
 
   if (!strcmp(flag, "-c")){
     us.val = 1;
