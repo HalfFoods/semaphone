@@ -42,7 +42,7 @@ int main(int argc, char * argv[]){
   }
   else if (!strcmp(flag, "-r")){
     printf("Printing the entire story: \n");
-    fd=open(STORY,O_RDONLY);
+    fd=open("semaphone.txt",O_RDONLY);
     if (fd<0) printf("Error opening file.\n");
     char buff[SEG_SIZE];
     while(read(fd,buff,SEG_SIZE)>=SEG_SIZE){
