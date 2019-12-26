@@ -1,6 +1,6 @@
 #include "control.h"
 
-int semd, v, r, fd;
+int semd, v, r, shmd, fd;
 
 int main(int argc, char * argv[]){
   char flag[2];

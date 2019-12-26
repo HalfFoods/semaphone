@@ -10,4 +10,5 @@ write.o: write.c
 
 clean:
 	rm *.o
-	rm program
+	rm control
+	rm write
