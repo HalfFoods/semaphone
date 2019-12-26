@@ -11,7 +11,7 @@
 
 #define SEMKEY 24601
 #define SHKEY 24602
-#define SEG_SIZE 200
+#define SEG_SIZE 2000
 
 union semun {
   int              val;    /* Value for SETVAL */

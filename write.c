@@ -20,11 +20,10 @@ int main(){
 
   fd = open("semaphone.txt", O_WRONLY | O_APPEND);
   char * old = shmat(shmd, 0, 0);
-  printf("Last addition: %s\n", old);
+  printf("Last addition: %s", old);
   char new[SEG_SIZE];
   printf("Your addition: ");
   fgets(new, SEG_SIZE, stdin);
-  printf("\n");
   write(fd, new, strlen(new));
   close(fd);
   strcpy(old, new);
