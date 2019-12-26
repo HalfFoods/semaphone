@@ -49,6 +49,7 @@ int creating(){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
+  close(fd);
   printf("file created\n");
   return 0;
 }
@@ -59,13 +60,14 @@ int removing(){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
+
   printf("trying to get in\n");
   struct sembuf sb;
   sb.sem_num = 0;
   sb.sem_op = -1;
   semop(semd, &sb, 1);
 
-  shmd = shmget(SHKEY, sizeof(char *), 0);
+  shmd = shmget(SHKEY, SEG_SIZE, 0);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
