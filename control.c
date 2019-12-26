@@ -1,6 +1,7 @@
 #include "control.h"
 
 int semd, v, r, shmd, fd;
+char * data;
 struct sembuf sb;
 union semun us;
 
@@ -40,6 +41,7 @@ int creating(){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
+  data = shmat(shmd, 0, 0);
   printf("shared memory created\n");
 
   fd = open("semaphone.txt", O_CREAT | O_TRUNC | O_RDWR, 0644);
@@ -62,7 +64,7 @@ int removing(){
   printf("trying to get in\n");
   semop(semd, &sb, 1);
 
-  shmd = shmget(SHKEY, SEG_SIZE, 0);
+  shmd = shmget(SHKEY, 1, 0);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
