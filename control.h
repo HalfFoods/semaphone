@@ -21,7 +21,7 @@ union semun {
                               (Linux-specific) */
 };
 
-int semd, v, r, shmd, fd;
+int semd, shmd, fd;
 struct sembuf sb;
 union semun us;
 
