@@ -24,10 +24,10 @@ int main(){
   char new[SEG_SIZE];
   printf("Your addition: ");
   fgets(new, SEG_SIZE, stdin);
+  * strchr(new, '\n') = '\0';
   write(fd, new, strlen(new));
   close(fd);
-  strcpy(old, new);
-  shmdt(old);
+  shmdt(new);
   sb.sem_op = 1;
   semop(semd, &sb, 1);
 }
