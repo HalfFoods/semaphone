@@ -37,7 +37,7 @@ int creating(){
   semctl(semd, 0, SETVAL, us);
   printf("semaphore created\n");
 
-  shmd = shmget(SHKEY, SEG_SIZE, IPC_CREAT | 0644);
+  shmd = shmget(SHKEY, sizeof(char *), IPC_CREAT | 0644);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
@@ -64,12 +64,13 @@ int removing(){
   printf("trying to get in\n");
   semop(semd, &sb, 1);
 
-  shmd = shmget(SHKEY, SEG_SIZE, 0);
+  shmd = shmget(SHKEY, sizeof(char *), 0);
   if (shmd == -1){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
 
+  printf("got here\n");
   char story[SEG_SIZE];
   read(fd, story, SEG_SIZE);
   printf("The story so far:\n%s\n", story);
