@@ -81,6 +81,9 @@ int viewing(){
   char buff[SEG_SIZE];
   buff[0] = '\0';
   read(fd, buff, SEG_SIZE);
+  if (strlen(buff) != 0) {
+    *(strrchr(buff, '\n') + 1) = '\0';
+  }
   printf("%s\n",buff);
   close(fd);
 }
