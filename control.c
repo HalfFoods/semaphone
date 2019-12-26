@@ -70,6 +70,12 @@ int removing(){
     return -1;
   }
 
+  fd = open("semaphone.txt", O_RDONLY);
+  if (fd == -1){
+    printf("error %d: %s\n", errno, strerror(errno));
+    return -1;
+  }
+
   printf("The story so far:\n");
   char buff[SEG_SIZE];
   buff[0] = '\0';
@@ -77,7 +83,7 @@ int removing(){
   if (strlen(buff) != 0) {
     *(strrchr(buff, '\n') + 1) = '\0';
   }
-  printf("\n");
+  printf("%s\n", buff);
   close(fd);
 
   shmctl(shmd, IPC_RMID, 0);
@@ -103,7 +109,7 @@ int viewing(){
   if (strlen(buff) != 0) {
     *(strrchr(buff, '\n') + 1) = '\0';
   }
-  printf("\n");
+  printf("%s\n", buff);
   close(fd);
   return 0;
 }
