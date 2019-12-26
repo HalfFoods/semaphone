@@ -1,6 +1,6 @@
 #include "control.h"
 
-int semd, v, r, shmd, fd;
+int semd, v, r, shmd, fd, q;
 char * data;
 struct sembuf sb;
 union semun us;
@@ -41,32 +41,28 @@ int main(int argc, char * argv[]){
     printf("file created\n");
   }
   else if (!strcmp(flag, "-r")){
-    semd = semget(SEMKEY, 1, 0);
-    if (semd == -1) {
-      printf("error %d: %s\n", errno, strerror(errno));
-      return -1;
+    printf("Printing the entire story: \n");
+    fd=open(STORY,O_RDONLY);
+    if (fd<0) printf("Error opening file.\n");
+    char buff[SEG_SIZE];
+    while(read(fd,buff,SEG_SIZE)>=SEG_SIZE){
+      printf("%s",buff);
     }
+    printf("\n");
 
-    printf("trying to get in\n");
-    semop(semd, &sb, 1);
+    semd=semget(SEMKEY,1,0);
+    q=semctl(semd, IPC_RMID, 0);
+    printf("Semaphore released.\n");
+    if (q<0) printf ("Error removing semaphore\n");
 
-    shmd = shmget(SHKEY, 1, 0);
-    if (shmd == -1){
-      printf("error %d: %s\n", errno, strerror(errno));
-      return -1;
-    }
+    shmd=shmget(SHKEY,1,0);
+    q=shmctl(shmd,IPC_RMID,0);
+    printf("Shared memory released.\n");
+    if (q<0) printf ("Error removing shared memory.\n");
 
-    char story[SEG_SIZE];
-    read(fd, story, SEG_SIZE);
-    printf("The story so far:\n%s\n", story);
     close(fd);
-
-    shmctl(shmd, IPC_RMID, 0);
-    printf("shared memory removed\n");
-    semctl(semd, IPC_RMID, 0);
-    printf("semaphore removed\n");
-    remove("semaphone.txt");
-    printf("file removed\n");
+    printf("File closed.\n");
+    if (fd<0) printf("Error closing the file.\n");
   }
   else if (!strcmp(flag, "-v")){
     fd = open("semaphone.txt", O_RDONLY);
