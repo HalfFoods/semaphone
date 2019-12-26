@@ -24,7 +24,7 @@ int main(){
   char new[SEG_SIZE];
   printf("Your addition: ");
   fgets(new, SEG_SIZE, stdin);
-  * strchr(new, '\n') = '\0';
+  new[strlen(new)-1] = '\0'
   write(fd, new, strlen(new));
   close(fd);
   shmdt(new);
