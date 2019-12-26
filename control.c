@@ -75,7 +75,7 @@ int removing(){
   while(read(fd, b, SEG_SIZE) >= SEG_SIZE){
     printf("%s", b);
   }
-  printtf("\n");
+  printf("\n");
   close(fd);
 
   shmctl(shmd, IPC_RMID, 0);
