@@ -1,9 +1,5 @@
 #include "control.h"
 
-int semd, v, r, shmd, fd;
-struct sembuf sb;
-union semun us;
-
 int main(int argc, char * argv[]){
   char flag[2];
   strncpy(flag, argv[1], 2);

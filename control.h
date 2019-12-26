@@ -21,6 +21,10 @@ union semun {
                               (Linux-specific) */
 };
 
+int semd, v, r, shmd, fd;
+struct sembuf sb;
+union semun us;
+
 int creating();
 int removing();
 int viewing();
