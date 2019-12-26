@@ -73,7 +73,7 @@ int removing(){
   printf("The story so far:\n");
   char buff[SEG_SIZE];
   buff[0] = '\0';
-  read(fd,buff,SEG_SIZE);
+  read(fd, buff, SEG_SIZE);
   printf("%s\n",buff);
   close(fd);
 
@@ -92,13 +92,11 @@ int viewing(){
     printf("error %d: %s\n", errno, strerror(errno));
     return -1;
   }
-
   printf("The story so far:\n");
   char buff[SEG_SIZE];
   buff[0] = '\0';
-  read(fd,buff,SEG_SIZE);
+  read(fd, buff, SEG_SIZE);
   printf("%s\n",buff);
-  printf("\n");
   close(fd);
   return 0;
 }
